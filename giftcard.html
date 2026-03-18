@@ -2630,10 +2630,11 @@
             class="px-3 py-1 rounded-lg text-sm text-slate-600 dark:text-slate-300">Line</button>
         </div> -->
         <button onclick="if (typeof Tawk_API !== 'undefined') { Tawk_API.maximize(); }"
-          class="rounded-2xl bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 inline-flex items-center justify-center gap-2">
+          class="hidden lg:inline-flex rounded-2xl bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 items-center justify-center gap-2">
           <span class="inline-block w-2 h-2 rounded-full bg-white"></span>
           START TRADE
         </button>
+        
         <!-- Mobile Hamburger -->
         <button id="menuBtn"
           class="md:hidden relative z-50 w-9 h-9 flex flex-col justify-center items-center gap-1.5 group">
@@ -3402,28 +3403,29 @@
     <!-- Nav -->
     <nav class="flex flex-col space-y-3 text-white">
 
-      <a href="#" class="menu-item active">
-        <span>🏠</span> Home
+      <a href="index.html" class="menu-item active">
+        <span></span> Home
       </a>
 
-      <a href="#" class="menu-item">
-        <span>💰</span> Crypto
+      <a href="crypto.html" class="menu-item">
+        <span></span> Crypto
       </a>
 
-      <a href="#" class="menu-item">
-        <span>🎁</span> Gift Cards
+      <a href="giftcard.html" class="menu-item">
+        <span></span> Gift Cards
       </a>
 
-      <a href="#" class="menu-item">
-        <span>💳</span> Payments
+      <a href="accounts.html" class="menu-item">
+        <span></span> Payments
       </a>
 
     </nav>
 
     <!-- CTA -->
-    <button
-      class="mt-10 w-full bg-gradient-to-r from-red-500 to-orange-500 hover:opacity-90 transition rounded-xl py-3 font-medium text-white shadow-lg shadow-orange-500/20">
-      Start Trade
+    <button onclick="if (typeof Tawk_API !== 'undefined') { Tawk_API.maximize(); }"
+      class="rounded-2xl bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 inline-flex items-center justify-center gap-2">
+      <span class="inline-block w-2 h-2 rounded-full bg-white"></span>
+      START TRADE
     </button>
 
   </div>
