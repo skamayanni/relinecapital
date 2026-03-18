@@ -12,7 +12,7 @@
   <script>
     document.documentElement.classList.add('dark');
   </script>
-  
+
   <style>
     @keyframes floatA {
       0% {
@@ -2710,6 +2710,13 @@
           <span class="inline-block w-2 h-2 rounded-full bg-white"></span>
           START TRADE
         </button>
+        <!-- Mobile Hamburger -->
+        <button id="menuBtn"
+          class="md:hidden relative z-50 w-9 h-9 flex flex-col justify-center items-center gap-1.5 group">
+          <span class="line w-6 h-0.5 bg-white transition-all duration-300"></span>
+          <span class="line w-6 h-0.5 bg-white transition-all duration-300"></span>
+          <span class="line w-6 h-0.5 bg-white transition-all duration-300"></span>
+        </button>
       </div>
     </div>
   </header>
@@ -3364,6 +3371,179 @@
       color: #2962FF !important;
     }
   </style>
+
+
+
+  <a href="https://wa.me/+19189173462?text=Hello%20Kawasaki's%20Kitchen,%20I%20would%20like%20to%20place%20an%20order"
+    class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Chat">
+    <span>Chat with us</span>
+  </a>
+
+
+  <!-- Overlay -->
+  <div id="overlay" class="fixed inset-0 bg-black/50 backdrop-blur-md opacity-0 invisible transition duration-300 z-40">
+  </div>
+
+  <!-- Sidebar -->
+  <div id="sidebar"
+    class="fixed top-0 right-0 h-full w-80 bg-white/5 backdrop-blur-xl border-l border-white/10 shadow-2xl transform translate-x-full transition-all duration-500 z-50 p-6">
+
+    <!-- Logo -->
+    <div class="flex items-center gap-3 mb-10">
+      <div
+        class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center font-bold text-white">
+        R
+      </div>
+      <h1 class="text-white text-xl font-semibold tracking-wide">RELINE</h1>
+    </div>
+
+    <!-- Nav -->
+    <nav class="flex flex-col space-y-3 text-white">
+
+      <a href="#" class="menu-item active">
+        <span>🏠</span> Home
+      </a>
+
+      <a href="#" class="menu-item">
+        <span>💰</span> Crypto
+      </a>
+
+      <a href="#" class="menu-item">
+        <span>🎁</span> Gift Cards
+      </a>
+
+      <a href="#" class="menu-item">
+        <span>💳</span> Payments
+      </a>
+
+    </nav>
+
+    <!-- CTA -->
+    <button
+      class="mt-10 w-full bg-gradient-to-r from-red-500 to-orange-500 hover:opacity-90 transition rounded-xl py-3 font-medium text-white shadow-lg shadow-orange-500/20">
+      Start Trade
+    </button>
+
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    let isOpen = false;
+
+    menuBtn.addEventListener("click", () => {
+      isOpen = !isOpen;
+
+      if (isOpen) {
+        sidebar.classList.remove("translate-x-full");
+        overlay.classList.remove("invisible", "opacity-0");
+        document.body.classList.add("menu-open");
+      } else {
+        sidebar.classList.add("translate-x-full");
+        overlay.classList.add("invisible", "opacity-0");
+        document.body.classList.remove("menu-open");
+      }
+    });
+
+    overlay.addEventListener("click", () => {
+      sidebar.classList.add("translate-x-full");
+      overlay.classList.add("invisible", "opacity-0");
+      document.body.classList.remove("menu-open");
+      isOpen = false;
+    });
+  </script>
+
+  <style>
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .menu-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fb923c;
+    }
+
+    .menu-item.active {
+      background: rgba(251, 146, 60, 0.1);
+      color: #fb923c;
+    }
+
+    .menu-item.active::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      top: 20%;
+      height: 60%;
+      width: 3px;
+      background: linear-gradient(to bottom, #f97316, #ef4444);
+      border-radius: 10px;
+    }
+
+    /* Hamburger Animation */
+    .menu-open .line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-open .line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-open .line:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+  </style>
+
+
+  <!-- Place this before </body> in your HTML -->
+  <script>
+    // Disable right-click
+    document.addEventListener("contextmenu", function (e) {
+      e.preventDefault();
+      alert("Right-click is disabled on this website!");
+    });
+
+    // Disable certain keyboard shortcuts
+    document.addEventListener("keydown", function (e) {
+      // F12
+      if (e.key === "F12") {
+        e.preventDefault();
+        alert("This shortcut is disabled!");
+      }
+
+      // Ctrl+Shift+I or Cmd+Option+I (Open DevTools)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "i") {
+        e.preventDefault();
+        alert("This shortcut is disabled!");
+      }
+
+      // Ctrl+Shift+J or Cmd+Option+J (Console)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "j") {
+        e.preventDefault();
+        alert("This shortcut is disabled!");
+      }
+
+      // Ctrl+U or Cmd+U (View Source)
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "u") {
+        e.preventDefault();
+        alert("Viewing source is disabled!");
+      }
+
+      // Ctrl+S or Cmd+S (Save page)
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        alert("Saving the page is disabled!");
+      }
+    });
+  </script>
 </body>
 
 </html>
