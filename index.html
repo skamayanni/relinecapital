@@ -1422,20 +1422,23 @@
     /* Container */
     .auth-container {
       display: flex;
-      justify-content: center !important;
-      align-items: center !important;
-      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      /* important for mobile spacing */
     }
 
     /* Box */
     .auth-box {
-      background: rgba(15, 23, 42, 0.9);
-      padding: 35px;
-      width: 30%;
+      background: rgba(15, 23, 42, 0.95);
+      padding: 25px;
+      width: 100%;
+      max-width: 380px;
+      /* keeps it nice on desktop */
       border-radius: 16px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(10px);
-      animation: fadeIn 0.6s ease;
     }
 
     /* Logo */
@@ -1455,11 +1458,15 @@
     .auth-tab {
       flex: 1;
       text-align: center;
-      padding: 10px;
+      padding: 12px;
+      font-size: 15px;
+      white-space: nowrap;
+      /* prevents "Sign Up" from breaking */
       cursor: pointer;
       color: #94a3b8;
       transition: 0.3s;
     }
+
 
     .auth-tab.active {
       color: #ff5500;
@@ -1471,16 +1478,26 @@
       margin-bottom: 15px;
     }
 
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: #cbd5f5;
+    }
+
     .form-control {
       width: 100%;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 14px;
+      /* increase */
+      font-size: 16px;
+      /* important for mobile */
       border: 1px solid #1e293b;
+      border-radius: 10px;
       background: #020617;
       color: #fff;
       outline: none;
       transition: 0.3s;
     }
+
 
     .form-control:focus {
       border-color: #ff5500;
@@ -1489,21 +1506,25 @@
 
     /* Button */
     .btn-primary {
+      width: 100%;
       background: linear-gradient(135deg, #ff5500, #ff2200);
       border: none;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 14px;
+      border-radius: 10px;
       color: #fff;
       font-weight: bold;
+      font-size: 16px;
       cursor: pointer;
       transition: 0.3s;
     }
+
 
     /* Button Hover (IMPORTANT 🔥) */
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(255, 85, 0, 0.4);
     }
+
 
     /* Checkbox */
     input[type="checkbox"] {
@@ -1530,6 +1551,25 @@
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .auth-box {
+        padding: 20px;
+        border-radius: 12px;
+      }
+
+      .auth-logo img {
+        width: 100px;
+      }
+
+      .auth-tab {
+        font-size: 14px;
+      }
+
+      label {
+        font-size: 14px;
       }
     }
   </style>
@@ -1729,9 +1769,9 @@
         showMainApp();
       }
     };
-  </script> 
+  </script>
 
-<!-- 
+  <!-- 
   <script>
     window.onload = function () {
       const user = localStorage.getItem("loggedInUser");
@@ -1760,8 +1800,9 @@
   </script>
 
 
+ 
 
-  <!-- MAIN WEBSITE CONTENT -->
+  <-- MAIN WEBSITE CONTENT -->
   <div id="mainContent" style="display:none;">
     <!-- YOUR EXISTING WEBSITE CODE GOES HERE -->
 
