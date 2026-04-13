@@ -245,43 +245,75 @@
 
   <-- MAIN WEBSITE CONTENT -->
   <!-- <div id="mainContent" style="display:none;"> -->
-    <!-- YOUR EXISTING WEBSITE CODE GOES HERE -->
+  <!-- YOUR EXISTING WEBSITE CODE GOES HERE -->
 
 
 
-    <div aria-hidden="" class="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
-      <div id="bgParallax" class="absolute inset-0 will-change-transform transition-transform duration-150"
-        style="transform: translate(4.98884px, -2.41655px) scale(1.03);">
-        <img src="./img/2geda.jpeg" alt="" class="w-full h-full object-cover opacity-30 dark:opacity-20">
-      </div>
-      <div
-        class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-white/80 dark:from-slate-900/80 dark:via-slate-900/40 dark:to-slate-950/85">
-      </div>
-      <div class="absolute -top-40 -left-40 w-[40rem] h-[40rem] rounded-full bg-cyan-400/15 blur-3xl"
-        style="animation: floatA 22s ease-in-out infinite;"></div>
-      <div class="absolute -bottom-48 -right-32 w-[42rem] h-[42rem] rounded-full bg-fuchsia-400/10 blur-3xl"
-        style="animation: floatB 26s ease-in-out infinite;"></div>
+  <div aria-hidden="" class="pointer-events-none fixed inset-0 -z-20 overflow-hidden">
+    <div id="bgParallax" class="absolute inset-0 will-change-transform transition-transform duration-150"
+      style="transform: translate(4.98884px, -2.41655px) scale(1.03);">
+      <img src="./img/2geda.jpeg" alt="" class="w-full h-full object-cover opacity-30 dark:opacity-20">
     </div>
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-white/80 dark:from-slate-900/80 dark:via-slate-900/40 dark:to-slate-950/85">
+    </div>
+    <div class="absolute -top-40 -left-40 w-[40rem] h-[40rem] rounded-full bg-cyan-400/15 blur-3xl"
+      style="animation: floatA 22s ease-in-out infinite;"></div>
+    <div class="absolute -bottom-48 -right-32 w-[42rem] h-[42rem] rounded-full bg-fuchsia-400/10 blur-3xl"
+      style="animation: floatB 26s ease-in-out infinite;"></div>
+  </div>
 
-    <!-- Header -->
-    <header
-      class="sticky top-0 z-40 backdrop-blur bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-        <a href="#home" class="flex items-center gap-2"><img src="img/reline_logo.png" alt="Reline Technologies"
-            style="height:60px;">
-          <!-- <span class="w-8 h-8 rounded-xl bg-red-600 shadow-lg shadow-red-600/40 block"></span> -->
-          <span class="font-semibold tracking-tight">RELINE CAPITAL</span>
-        </a>
-        <nav class="hidden md:flex items-center gap-6 text-sm">
-          <a href="index.html" class="hover:text-cyan-600">Home</a>
-          <a href="crypto.html" class="hover:text-cyan-600">Crypto</a>
-          <a href="giftcard.html" class="hover:text-cyan-600">Gift Cards</a>
-          <a href="accounts.html" class="hover:text-cyan-600">Payments</a>
-          <!-- <a href="#faq" class="hover:text-cyan-600">FAQ</a>
+  <script>
+    async function loadPrices() {
+      try {
+        const res = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether,binancecoin,solana,ripple,cardano,dogecoin,polygon,litecoin&vs_currencies=usd&include_24hr_change=true"
+        );
+        const data = await res.json();
+
+        function format(price, change) {
+          const color = change >= 0 ? "lime" : "red";
+          return `$${price.toLocaleString()} <span style="color:${color}">(${change.toFixed(2)}%)</span>`;
+        }
+
+        document.getElementById("btcPrice").innerHTML = format(data.bitcoin.usd, data.bitcoin.usd_24h_change);
+        document.getElementById("ethPrice").innerHTML = format(data.ethereum.usd, data.ethereum.usd_24h_change);
+        document.getElementById("usdtPrice").innerHTML = format(data.tether.usd, data.tether.usd_24h_change);
+        document.getElementById("bnbPrice").innerHTML = format(data.binancecoin.usd, data.binancecoin.usd_24h_change);
+        document.getElementById("solPrice").innerHTML = format(data.solana.usd, data.solana.usd_24h_change);
+        document.getElementById("xrpPrice").innerHTML = format(data.ripple.usd, data.ripple.usd_24h_change);
+        document.getElementById("adaPrice").innerHTML = format(data.cardano.usd, data.cardano.usd_24h_change);
+        document.getElementById("dogePrice").innerHTML = format(data.dogecoin.usd, data.dogecoin.usd_24h_change);
+        document.getElementById("ltcPrice").innerHTML = format(data.litecoin.usd, data.litecoin.usd_24h_change);
+
+      } catch (err) {
+        console.error("Price error:", err);
+      }
+    }
+
+    loadPrices();
+    setInterval(loadPrices, 10000);
+  </script>
+
+  <!-- Header -->
+  <header
+    class="sticky top-0 z-40 backdrop-blur bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-2"><img src="img/reline_logo.png" alt="Reline Technologies"
+          style="height:60px;">
+        <!-- <span class="w-8 h-8 rounded-xl bg-red-600 shadow-lg shadow-red-600/40 block"></span> -->
+        <span class="font-semibold tracking-tight">RELINE CAPITAL</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="index.html" class="hover:text-cyan-600">Home</a>
+        <a href="crypto.html" class="hover:text-cyan-600">Crypto</a>
+        <a href="giftcard.html" class="hover:text-cyan-600">Gift Cards</a>
+        <a href="accounts.html" class="hover:text-cyan-600">Payments</a>
+        <!-- <a href="#faq" class="hover:text-cyan-600">FAQ</a>
         <a href="#contact" class="hover:text-cyan-600">Contact</a> -->
-        </nav>
-        <div class="flex flex-wrap items-center gap-3">
-          <!--<div
+      </nav>
+      <div class="flex flex-wrap items-center gap-3">
+        <!--<div
           class="flex items-center gap-1 p-1 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800">
           <span class="px-2 text-xs text-slate-500">Theme</span>
           <button id="tAuto" class="px-3 py-1 rounded-lg text-sm text-slate-600 dark:text-slate-300">Auto</button>
@@ -289,7 +321,7 @@
             class="px-3 py-1 rounded-lg text-sm bg-white dark:bg-slate-700 shadow text-slate-900 dark:text-white">Light</button>
           <button id="tDark" class="px-3 py-1 rounded-lg text-sm text-slate-600 dark:text-slate-300">Dark</button>
         </div> -->
-          <!-- <div id="chartToggle"
+        <!-- <div id="chartToggle"
           class="items-center gap-1 p-1 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 hidden">
           <span class="px-2 text-xs text-slate-500">Chart</span>
           <button data-chart="candles"
@@ -297,300 +329,380 @@
           <button data-chart="line"
             class="px-3 py-1 rounded-lg text-sm text-slate-600 dark:text-slate-300">Line</button>
         </div> -->
-          <button onclick="if (typeof Tawk_API !== 'undefined') { Tawk_API.maximize(); }"
-            class="hidden lg:inline-flex rounded-2xl bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 items-center justify-center gap-2">
-            <span class="inline-block w-2 h-2 rounded-full bg-white"></span>
-            START TRADE
-          </button>
+        <button onclick="if (typeof Tawk_API !== 'undefined') { Tawk_API.maximize(); }"
+          class="hidden lg:inline-flex rounded-2xl bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 items-center justify-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-white"></span>
+          START TRADE
+        </button>
 
-          <!-- Mobile Hamburger -->
-          <button id="menuBtn"
-            class="md:hidden relative z-50 w-9 h-9 flex flex-col justify-center items-center gap-1.5 group">
-            <span class="line w-6 h-0.5 bg-white transition-all duration-300"></span>
-            <span class="line w-6 h-0.5 bg-white transition-all duration-300"></span>
-            <span class="line w-6 h-0.5 bg-white transition-all duration-300"></span>
-          </button>
-        </div>
+        <!-- Mobile Hamburger -->
+        <button id="menuBtn"
+          class="md:hidden relative z-50 w-9 h-9 flex flex-col justify-center items-center gap-1.5 group">
+          <span class="line w-6 h-0.5 bg-white transition-all duration-300"></span>
+          <span class="line w-6 h-0.5 bg-white transition-all duration-300"></span>
+          <span class="line w-6 h-0.5 bg-white transition-all duration-300"></span>
+        </button>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <main>
-      <!-- HOME -->
-      <section id="home" class="relative bg-slate-895 text-white">
-        <div
-          class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_20%,#7f1d1d,transparent_40%),radial-gradient(circle_at_50%_50%,#991b1b,transparent_40%)]">
-        </div>
+  <div id="priceBar" class="w-full bg-transparent text-white text-sm py-2 px-4 flex gap-6 overflow-x-auto">
+    <span>BTC: <b id="btcPrice">...</b></span>
+    <span>ETH: <b id="ethPrice">...</b></span>
+    <span>USDT: <b id="usdtPrice">...</b></span>
+    <span>BNB: <b id="bnbPrice">...</b></span>
+    <span>SOL: <b id="solPrice">...</b></span>
+    <span>XRP: <b id="xrpPrice">...</b></span>
+    <span>ADA: <b id="adaPrice">...</b></span>
+    <span>DOGE: <b id="dogePrice">...</b></span>
+    <span>LTC: <b id="ltcPrice">...</b></span>
+  </div>
 
-        <div class="relative max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-16 items-center">
+  <style>
+    #priceBar {
+      white-space: nowrap;
+      animation: scrollTicker 25s linear infinite;
+    }
 
-          <!-- LEFT CONTENT -->
-          <div>
-            <p class="text-sm tracking-widest uppercase text-red-500 mb-4">
-              Digital Asset Brokerage
-            </p>
+    #priceBar span {
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      padding-right: 12px;
+    }
 
-            <h1 class="text-5xl md:text-6xl font-bold leading-tight">
-              Trade Crypto & Gift Cards
-              <span class="block text-red-500">With Confidence.</span>
-            </h1>
+    @keyframes scrollTicker {
+      from {
+        transform: translateX(0);
+      }
 
-            <p class="mt-6 text-lg text-slate-300 max-w-lg">
-              Private OTC desk offering fast settlement, real-time quotes,
-              and secure payment processing. Designed for serious traders.
-            </p>
+      to {
+        transform: translateX(-50%);
+      }
+    }
+  </style>
 
-            <div class="mt-8 flex flex-wrap gap-4">
-              <button onclick="if (typeof Tawk_API !== 'undefined') { Tawk_API.maximize(); }"
-                class="bg-red-600 hover:bg-red-700 transition px-6 py-3 rounded-xl font-medium shadow-lg">
-                Trade Now
-              </button>
+  <main>
+    <!-- HOME -->
+    <section id="home" class="relative bg-slate-895 text-white">
+      <div
+        class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_20%,#7f1d1d,transparent_40%),radial-gradient(circle_at_50%_50%,#991b1b,transparent_40%)]">
+      </div>
 
-              <a href="https://wa.me/2349066944969?text=Hello%20I%20want%20to%20make%20an%20inquiry" target="_blank"
-                class="border border-slate-700 hover:border-red-600 px-6 py-3 rounded-xl transition inline-flex items-center gap-2">
+      <div class="relative max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-16 items-center">
 
-                <span>💬</span> Get in Touch
-              </a>
-            </div>
-
-            <div class="mt-10 flex gap-8 text-sm text-slate-400">
-              <span>✔ Secure</span>
-              <span>✔ Fast Settlement</span>
-              <span>✔ Confidential</span>
-            </div>
-          </div>
-
-          <!-- RIGHT GLASS CARD -->
-          <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 shadow-2xl">
-            <h3 class="text-xl font-semibold mb-6">Create Trade Request</h3>
-
-            <div class="space-y-4">
-              <input class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 placeholder-slate-500"
-                placeholder="Transaction Type (Buy / Sell / Convert)">
-
-              <input class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 placeholder-slate-500"
-                placeholder="Asset (BTC, USDT, Amazon…)">
-
-              <input class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 placeholder-slate-500"
-                placeholder="Amount">
-
-              <input class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 placeholder-slate-500"
-                placeholder="Settlement Method">
-
-              <button onclick="if (typeof Tawk_API !== 'undefined') { Tawk_API.maximize(); }"
-                class="w-full bg-red-600 hover:bg-red-700 transition rounded-xl py-3 font-medium shadow-lg">
-                Continue to Live Chat
-              </button>
-            </div>
-
-            <p class="text-xs text-slate-500 mt-4">
-              We never request private keys, seed phrases, or 2FA codes.
-            </p>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Highlights -->
-      <section class="max-w-6xl mx-auto px-6 py-16">
-        <div class="grid md:grid-cols-3 gap-8">
-
-          <!-- Card 1 -->
-          <div
-            class="relative p-8 rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden">
-
-            <div class="w-12 h-[2px] bg-gradient-to-r from-red-600 to-red-400 mb-6 rounded-full"></div>
-
-            <h3 class="text-lg font-semibold text-white">
-              Crypto at real market rates
-            </h3>
-
-            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-              BTC, ETH, USDT with transparent spreads.
-              Settlement via bank or mobile money.
-            </p>
-          </div>
-
-          <!-- Card 2 -->
-          <div
-            class="relative p-8 rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden">
-
-            <div class="w-12 h-[2px] bg-gradient-to-r from-red-600 to-red-400 mb-6 rounded-full"></div>
-
-            <h3 class="text-lg font-semibold text-white">
-              Gift cards → cash
-            </h3>
-
-            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-              Amazon, Apple, Steam, Visa and more.
-              Send codes or images — receive prompt payout.
-            </p>
-          </div>
-
-          <!-- Card 3 -->
-          <div
-            class="relative p-8 rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden">
-
-            <div class="w-12 h-[2px] bg-gradient-to-r from-red-600 to-red-400 mb-6 rounded-full"></div>
-
-            <h3 class="text-lg font-semibold text-white">
-              Ethical payments
-            </h3>
-
-            <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-              Individual & company accounts, PayPal, Zelle (US).
-              Bulk or one-off with digital receipts.
-            </p>
-          </div>
-
-        </div>
-        <!-- </section> -->
-
-        <BR></BR>
-        <BR></BR>
-
-        <!-- CONTACT -->
-        <!-- <section id="contact" class="scroll-mt-24 max-w-6xl mx-auto px-6 py-16"> -->
-        <h2 class="text-3xl font-semibold text-white">Contact RELINE</h2>
-        <div class="mt-6 grid md:grid-cols-2 gap-6 items-start">
-          <div>
-            <div class="space-y-3">
-              <input
-                class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-900/50 rounded-xl px-3 py-2 placeholder-slate-400"
-                placeholder="Your name">
-              <input
-                class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-900/50 rounded-xl px-3 py-2 placeholder-slate-400"
-                placeholder="Email or WhatsApp number">
-              <textarea
-                class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-900/50 rounded-xl px-3 py-2 placeholder-slate-400"
-                rows="6" placeholder="What would you like to trade? (e.g., Sell 300 USDT → NGN)"></textarea>
-              <div class="flex gap-3">
-                <button onclick="if (typeof Tawk_API !== 'undefined') { Tawk_API.maximize(); }"
-                  class="rounded-2xl bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 inline-flex items-center justify-center gap-2">
-                  <span class="inline-block w-2 h-2 rounded-full bg-white"></span>
-                  Contact Us
-                </button>
-                <a href="https://wa.me/1234567890" target="_blank"
-                  class="rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-600 transition border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 px-4 py-2 inline-flex items-center gap-2"><span
-                    class="inline-block w-2 h-2 bg-cyan-600 rounded-full"></span>WhatsApp</a>
-              </div>
-              <p class="text-xs text-slate-500">We never ask for your seed phrase or 2FA codes.</p>
-            </div>
-          </div>
-          <div class="rounded-2xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 bg-white p-4">
-            <div class="text-base font-semibold mb-2">Why choose RELINE?</div>
-            <div class="text-sm text-slate-700 dark:text-slate-200 space-y-2">
-              <p class="flex items-center gap-2"><span class="w-3 h-3 bg-cyan-600 rounded-full inline-block"></span>
-                24/7
-                quotes, quick settlement windows</p>
-              <p class="flex items-center gap-2"><span class="w-3 h-3 bg-cyan-600 rounded-full inline-block"></span>
-                Verified counterparties &amp; audit trail</p>
-              <p class="flex items-center gap-2"><span class="w-3 h-3 bg-cyan-600 rounded-full inline-block"></span>
-                High‑touch chat support</p>
-            </div>
-          </div>
-        </div>
-
-        <BR></BR>
-        <BR></BR>
-
-        <!-- FAQ -->
-        <!-- <section id="faq" class="scroll-mt-24 max-w-6xl mx-auto px-6 py-16"> -->
-        <h2 class="text-3xl font-semibold text-white">FAQ</h2>
-        <div class="mt-8 space-y-4">
-          <details
-            class="rounded-xl border border-slate-200 dark:border-slate-700 p-4 bg-slate-900 border border-slate-800 hover:border-red-600 transition">
-            <summary class="cursor-pointer font-medium">How do trades work without a dashboard?</summary>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Start a chat, request a quote, share order
-              details,
-              and settle via bank transfer or an agreed rail. We confirm funds and complete delivery — all recorded in
-              the
-              chat with receipts.</p>
-          </details>
-          <details
-            class="rounded-xl border border-slate-200 dark:border-slate-700 p-4 bg-slate-900 border border-slate-800 hover:border-red-600 transition">
-            <summary class="cursor-pointer font-medium">Which countries do you support?</summary>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">We operate globally for digital assets.
-              Settlement
-              methods vary by region. Ask in chat for your location.</p>
-          </details>
-          <details
-            class="rounded-xl border border-slate-200 dark:border-slate-700 p-4 bg-slate-900 border border-slate-800 hover:border-red-600 transition">
-            <summary class="cursor-pointer font-medium">What are your hours?</summary>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">24/7 for quotes. Settlement windows follow
-              partner
-              banks and rails; we’ll confirm in chat.</p>
-          </details>
-          <details
-            class="rounded-xl border border-slate-200 dark:border-slate-700 p-4 bg-slate-900 border border-slate-800 hover:border-red-600 transition">
-            <summary class="cursor-pointer font-medium">Compliance &amp; KYC?</summary>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Light KYC for first‑time trades and larger
-              amounts.
-              We follow AML guidelines and keep your data private.</p>
-          </details>
-        </div>
-        <!-- </section> -->
-      </section>
-    </main>
-
-    <footer class="bg-slate-950 border-t border-slate-800 mt-20">
-      <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-12 text-sm">
-
-        <!-- Brand -->
+        <!-- LEFT CONTENT -->
         <div>
-          <a href="#home" class="flex items-center gap-3">
-            <img src="img/downloadlogo.png" alt="Reline Technologies" style="height:60px;">
-            <span class="text-white font-semibold tracking-wide">
-              RELINE CAPITAL
-            </span>
-          </a>
-
-          <p class="mt-5 text-slate-400 leading-relaxed">
-            Private digital asset brokerage offering crypto execution,
-            gift card liquidity, and compliant payment settlement.
+          <p class="text-sm tracking-widest uppercase text-red-500 mb-4">
+            Digital Asset Brokerage
           </p>
+
+          <h1 class="text-5xl md:text-6xl font-bold leading-tight">
+            Exclusivity in Every Transaction
+            <span class="block mt-4 text-red-500 ">Swift. Secure. </span>
+          </h1>
+
+          <p class="mt-6 text-lg text-slate-300 max-w-lg">
+            Private OTC desk offering fast settlement, real-time quotes, and secure payment processing. Designed for a
+            premium experience.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-4">
+            <button onclick="if (typeof Tawk_API !== 'undefined') { Tawk_API.maximize(); }"
+              class="bg-red-600 hover:bg-red-700 transition px-6 py-3 rounded-xl font-medium shadow-lg">
+              Trade Now
+            </button>
+
+            <a href="https://wa.me/2349066944969?text=Hello%20I%20want%20to%20make%20an%20inquiry" target="_blank"
+              class="border border-slate-700 hover:border-red-600 px-6 py-3 rounded-xl transition inline-flex items-center gap-2">
+
+              <span>💬</span> Get in Touch
+            </a>
+          </div>
+
+          <div class="mt-10 flex gap-8 text-sm text-slate-400">
+            <span>✔ Secure</span>
+            <span>✔ Fast Settlement</span>
+            <span>✔ Confidential</span>
+          </div>
         </div>
 
-        <!-- Company -->
-        <div>
-          <h4 class="text-white font-semibold mb-4 tracking-wide">Company</h4>
-          <ul class="space-y-3 text-slate-400">
-            <li><a href="#home" class="hover:text-red-500 transition">Home</a></li>
-            <li><a href="#crypto" class="hover:text-red-500 transition">Crypto</a></li>
-            <li><a href="#giftcards" class="hover:text-red-500 transition">Gift Cards</a></li>
-          </ul>
-        </div>
+        <!-- RIGHT GLASS CARD -->
+        <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 shadow-2xl">
+          <h3 class="text-xl font-semibold mb-6">Create Trade Request</h3>
 
-        <!-- Support -->
-        <div>
-          <h4 class="text-white font-semibold mb-4 tracking-wide">Support</h4>
-          <ul class="space-y-3 text-slate-400">
-            <li><a href="#faq" class="hover:text-red-500 transition">FAQ</a></li>
-            <li><a href="mailto:hello@reline.com" class="hover:text-red-500 transition">hello@reline.com</a></li>
-            <li><a href="https://wa.me/1234567890" target="_blank" class="hover:text-red-500 transition">WhatsApp</a>
-            </li>
-          </ul>
-        </div>
+          <div class="space-y-4">
+            <input class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 placeholder-slate-500"
+              placeholder="Transaction Type (Buy / Sell / Convert)">
 
-        <!-- Compliance -->
-        <div>
-          <h4 class="text-white font-semibold mb-4 tracking-wide">Compliance</h4>
-          <p class="text-slate-400 leading-relaxed">
-            We follow AML/CFT guidelines and screen transactions in line
-            with regulatory standards. Service availability varies by jurisdiction.
+            <input class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 placeholder-slate-500"
+              placeholder="Asset (BTC, USDT, Amazon…)">
+
+            <input class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 placeholder-slate-500"
+              placeholder="Amount">
+
+            <input class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 placeholder-slate-500"
+              placeholder="Settlement Method">
+
+            <button onclick="if (typeof Tawk_API !== 'undefined') { Tawk_API.maximize(); }"
+              class="w-full bg-red-600 hover:bg-red-700 transition rounded-xl py-3 font-medium shadow-lg">
+              Continue to Live Chat
+            </button>
+          </div>
+
+          <p class="text-xs text-slate-500 mt-4">
+            We never request private keys, seed phrases, or 2FA codes.
           </p>
         </div>
 
       </div>
+    </section>
 
-      <!-- Bottom Bar -->
-      <div class="border-t border-slate-800">
+
+
+    <!-- Highlights -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
+        <h3 class="font-semibold mb-4">Markets</h3>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-slate-500">
+              <th>Asset</th>
+              <th>Price</th>
+              <th>24h %</th>
+            </tr>
+          </thead>
+          <tbody id="marketTable"></tbody>
+        </table>
+      </div>
+
+      <script>
+        async function loadMarket() {
+          const res = await fetch(
+            "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,tether,binancecoin,solana,ripple,cardano,tron,litecoin,dodgecoin,"
+          );
+          const data = await res.json();
+
+          const table = document.getElementById("marketTable");
+          table.innerHTML = "";
+
+          data.forEach(c => {
+            const row = `
+      <tr class="border-t border-slate-200 dark:border-slate-700">
+        <td>${c.name} (${c.symbol.toUpperCase()})</td>
+        <td>$${c.current_price.toLocaleString()}</td>
+        <td style="color:${c.price_change_percentage_24h >= 0 ? 'lime' : 'red'}">
+          ${c.price_change_percentage_24h.toFixed(2)}%
+        </td>
+      </tr>
+    `;
+            table.innerHTML += row;
+          });
+        }
+
+        loadMarket();
+        setInterval(loadMarket, 15000);
+      </script>
+
+      <BR></BR>
+
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- Card 1 -->
         <div
-          class="max-w-6xl mx-auto px-6 py-6 text-xs text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
-          <span>© 2026 RELINE CAPITAL. All rights reserved.</span>
-          <span>Digital Asset Brokerage — Private OTC Desk</span>
+          class="relative p-8 rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden">
+
+          <div class="w-12 h-[2px] bg-gradient-to-r from-red-600 to-red-400 mb-6 rounded-full"></div>
+
+          <h3 class="text-lg font-semibold text-white">
+            Crypto at real market rates
+          </h3>
+
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            BTC, ETH, USDT with transparent spreads.
+            Settlement via bank or mobile money.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div
+          class="relative p-8 rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden">
+
+          <div class="w-12 h-[2px] bg-gradient-to-r from-red-600 to-red-400 mb-6 rounded-full"></div>
+
+          <h3 class="text-lg font-semibold text-white">
+            Gift cards → cash
+          </h3>
+
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            Amazon, Apple, Steam, Visa and more.
+            Send codes or images — receive prompt payout.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div
+          class="relative p-8 rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden">
+
+          <div class="w-12 h-[2px] bg-gradient-to-r from-red-600 to-red-400 mb-6 rounded-full"></div>
+
+          <h3 class="text-lg font-semibold text-white">
+            Ethical payments
+          </h3>
+
+          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
+            Individual & company accounts, PayPal, Zelle (US).
+            Bulk or one-off with digital receipts.
+          </p>
+        </div>
+
+      </div>
+      <!-- </section> -->
+       
+      <BR></BR>
+
+      <!-- CONTACT -->
+      <!-- <section id="contact" class="scroll-mt-24 max-w-6xl mx-auto px-6 py-16"> -->
+      <h2 class="text-3xl font-semibold text-white">Contact RELINE</h2>
+      <div class="mt-6 grid md:grid-cols-2 gap-6 items-start">
+        <div>
+          <div class="space-y-3">
+            <input
+              class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-900/50 rounded-xl px-3 py-2 placeholder-slate-400"
+              placeholder="Your name">
+            <input
+              class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-900/50 rounded-xl px-3 py-2 placeholder-slate-400"
+              placeholder="Email or WhatsApp number">
+            <textarea
+              class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-900/50 rounded-xl px-3 py-2 placeholder-slate-400"
+              rows="6" placeholder="What would you like to trade? (e.g., Sell 300 USDT → NGN)"></textarea>
+            <div class="flex gap-3">
+              <button onclick="if (typeof Tawk_API !== 'undefined') { Tawk_API.maximize(); }"
+                class="rounded-2xl bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 inline-flex items-center justify-center gap-2">
+                <span class="inline-block w-2 h-2 rounded-full bg-white"></span>
+                Contact Us
+              </button>
+              <a href="https://wa.me/1234567890" target="_blank"
+                class="rounded-2xl bg-slate-900 border border-slate-800 hover:border-red-600 transition border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 px-4 py-2 inline-flex items-center gap-2"><span
+                  class="inline-block w-2 h-2 bg-cyan-600 rounded-full"></span>WhatsApp</a>
+            </div>
+            <p class="text-xs text-slate-500">We never ask for your seed phrase or 2FA codes.</p>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 bg-white p-4">
+          <div class="text-base font-semibold mb-2">Why choose RELINE?</div>
+          <div class="text-sm text-slate-700 dark:text-slate-200 space-y-2">
+            <p class="flex items-center gap-2"><span class="w-3 h-3 bg-cyan-600 rounded-full inline-block"></span>
+              24/7
+              quotes, quick settlement windows</p>
+            <p class="flex items-center gap-2"><span class="w-3 h-3 bg-cyan-600 rounded-full inline-block"></span>
+              Verified counterparties &amp; audit trail</p>
+            <p class="flex items-center gap-2"><span class="w-3 h-3 bg-cyan-600 rounded-full inline-block"></span>
+              High‑touch chat support</p>
+          </div>
         </div>
       </div>
-    </footer>
+
+      <BR></BR>
+      <BR></BR>
+
+      <!-- FAQ -->
+      <!-- <section id="faq" class="scroll-mt-24 max-w-6xl mx-auto px-6 py-16"> -->
+      <h2 class="text-3xl font-semibold text-white">FAQ</h2>
+      <div class="mt-8 space-y-4">
+        <details
+          class="rounded-xl border border-slate-200 dark:border-slate-700 p-4 bg-slate-900 border border-slate-800 hover:border-red-600 transition">
+          <summary class="cursor-pointer font-medium">How do trades work without a dashboard?</summary>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Start a chat, request a quote, share order
+            details,
+            and settle via bank transfer or an agreed rail. We confirm funds and complete delivery — all recorded in
+            the
+            chat with receipts.</p>
+        </details>
+        <details
+          class="rounded-xl border border-slate-200 dark:border-slate-700 p-4 bg-slate-900 border border-slate-800 hover:border-red-600 transition">
+          <summary class="cursor-pointer font-medium">Which countries do you support?</summary>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">We operate globally for digital assets.
+            Settlement
+            methods vary by region. Ask in chat for your location.</p>
+        </details>
+        <details
+          class="rounded-xl border border-slate-200 dark:border-slate-700 p-4 bg-slate-900 border border-slate-800 hover:border-red-600 transition">
+          <summary class="cursor-pointer font-medium">What are your hours?</summary>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">24/7 for quotes. Settlement windows follow
+            partner
+            banks and rails; we’ll confirm in chat.</p>
+        </details>
+        <details
+          class="rounded-xl border border-slate-200 dark:border-slate-700 p-4 bg-slate-900 border border-slate-800 hover:border-red-600 transition">
+          <summary class="cursor-pointer font-medium">Compliance &amp; KYC?</summary>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Light KYC for first‑time trades and larger
+            amounts.
+            We follow AML guidelines and keep your data private.</p>
+        </details>
+      </div>
+      <!-- </section> -->
+    </section>
+  </main>
+
+  <footer class="bg-slate-950 border-t border-slate-800 mt-20">
+    <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-12 text-sm">
+
+      <!-- Brand -->
+      <div>
+        <a href="#home" class="flex items-center gap-3">
+          <img src="img/downloadlogo.png" alt="Reline Technologies" style="height:60px;">
+          <span class="text-white font-semibold tracking-wide">
+            RELINE CAPITAL
+          </span>
+        </a>
+
+        <p class="mt-5 text-slate-400 leading-relaxed">
+          Private digital asset brokerage offering crypto execution,
+          gift card liquidity, and compliant payment settlement.
+        </p>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h4 class="text-white font-semibold mb-4 tracking-wide">Company</h4>
+        <ul class="space-y-3 text-slate-400">
+          <li><a href="#home" class="hover:text-red-500 transition">Home</a></li>
+          <li><a href="#crypto" class="hover:text-red-500 transition">Crypto</a></li>
+          <li><a href="#giftcards" class="hover:text-red-500 transition">Gift Cards</a></li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div>
+        <h4 class="text-white font-semibold mb-4 tracking-wide">Support</h4>
+        <ul class="space-y-3 text-slate-400">
+          <li><a href="#faq" class="hover:text-red-500 transition">FAQ</a></li>
+          <li><a href="mailto:hello@reline.com" class="hover:text-red-500 transition">hello@reline.com</a></li>
+          <li><a href="https://wa.me/1234567890" target="_blank" class="hover:text-red-500 transition">WhatsApp</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Compliance -->
+      <div>
+        <h4 class="text-white font-semibold mb-4 tracking-wide">Compliance</h4>
+        <p class="text-slate-400 leading-relaxed">
+          We follow AML/CFT guidelines and screen transactions in line
+          with regulatory standards. Service availability varies by jurisdiction.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-slate-800">
+      <div
+        class="max-w-6xl mx-auto px-6 py-6 text-xs text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
+        <span>© 2026 RELINE CAPITAL. All rights reserved.</span>
+        <span>Digital Asset Brokerage — Private OTC Desk</span>
+      </div>
+    </div>
+  </footer>
 
   </div>
 
@@ -701,7 +813,8 @@
       btc.innerHTML = ''; eth.innerHTML = '';
       new TradingView.widget({
         autosize: true,
-        symbol: 'KRAKEN:BTCUSD',
+        symbol: 'BINANCE:BTCUSDT',
+        symbol: 'BINANCE:ETHUSDT',
         interval: '60',
         timezone: 'Etc/UTC',
         theme: tvTheme,
@@ -825,11 +938,11 @@
     });
   </script>
 
-  
+
 
 
   <!-- Place this before /body in your HTML -->
-  <script>
+  <!-- <script>
     // Disable right-click
     document.addEventListener("contextmenu", function (e) {
       e.preventDefault();
@@ -868,7 +981,7 @@
         alert("Saving the page is disabled!");
       }
     });
-  </script>
+  </script> -->
 </body>
 
 </html>

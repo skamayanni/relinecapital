@@ -12,7 +12,7 @@
   <script>
     document.documentElement.classList.add('dark');
   </script>
-  <link rel="stylesheet" href="pagestyle.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <!--Start of Tawk.to Script-->
@@ -46,6 +46,38 @@
     <div class="absolute -bottom-48 -right-32 w-[42rem] h-[42rem] rounded-full bg-fuchsia-400/10 blur-3xl"
       style="animation: floatB 26s ease-in-out infinite;"></div>
   </div>
+
+  <script>
+    async function loadPrices() {
+      try {
+        const res = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether,binancecoin,solana,ripple,cardano,dogecoin,polygon,litecoin&vs_currencies=usd&include_24hr_change=true"
+        );
+        const data = await res.json();
+
+        function format(price, change) {
+          const color = change >= 0 ? "lime" : "red";
+          return `$${price.toLocaleString()} <span style="color:${color}">(${change.toFixed(2)}%)</span>`;
+        }
+
+        document.getElementById("btcPrice").innerHTML = format(data.bitcoin.usd, data.bitcoin.usd_24h_change);
+        document.getElementById("ethPrice").innerHTML = format(data.ethereum.usd, data.ethereum.usd_24h_change);
+        document.getElementById("usdtPrice").innerHTML = format(data.tether.usd, data.tether.usd_24h_change);
+        document.getElementById("bnbPrice").innerHTML = format(data.binancecoin.usd, data.binancecoin.usd_24h_change);
+        document.getElementById("solPrice").innerHTML = format(data.solana.usd, data.solana.usd_24h_change);
+        document.getElementById("xrpPrice").innerHTML = format(data.ripple.usd, data.ripple.usd_24h_change);
+        document.getElementById("adaPrice").innerHTML = format(data.cardano.usd, data.cardano.usd_24h_change);
+        document.getElementById("dogePrice").innerHTML = format(data.dogecoin.usd, data.dogecoin.usd_24h_change);
+        document.getElementById("ltcPrice").innerHTML = format(data.litecoin.usd, data.litecoin.usd_24h_change);
+
+      } catch (err) {
+        console.error("Price error:", err);
+      }
+    }
+
+    loadPrices();
+    setInterval(loadPrices, 10000);
+  </script>
 
   <!-- Header -->
   <header
@@ -86,7 +118,7 @@
           <span class="inline-block w-2 h-2 rounded-full bg-white"></span>
           START TRADE
         </button>
-        
+
         <!-- Mobile Hamburger -->
         <button id="menuBtn"
           class="md:hidden relative z-50 w-9 h-9 flex flex-col justify-center items-center gap-1.5 group">
@@ -98,6 +130,41 @@
     </div>
   </header>
 
+  <div id="priceBar" class="w-full bg-transparent text-white text-sm py-2 px-4 flex gap-6 overflow-x-auto">
+    <span>BTC: <b id="btcPrice">...</b></span>
+    <span>ETH: <b id="ethPrice">...</b></span>
+    <span>USDT: <b id="usdtPrice">...</b></span>
+    <span>BNB: <b id="bnbPrice">...</b></span>
+    <span>SOL: <b id="solPrice">...</b></span>
+    <span>XRP: <b id="xrpPrice">...</b></span>
+    <span>ADA: <b id="adaPrice">...</b></span>
+    <span>DOGE: <b id="dogePrice">...</b></span>
+    <span>LTC: <b id="ltcPrice">...</b></span>
+  </div>
+
+  <style>
+    #priceBar {
+      white-space: nowrap;
+      animation: scrollTicker 25s linear infinite;
+    }
+
+    #priceBar span {
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      padding-right: 12px;
+    }
+
+    @keyframes scrollTicker {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+  </style>
+
+
   <main>
     <!-- HOME -->
     <!-- CRYPTO -->
@@ -105,6 +172,7 @@
       <h2 class="text-3xl font-semibold flex items-center gap-2">Crypto — Live Markets </h2>
       <p class="mt-2 text-slate-600 dark:text-slate-300">Switch chart style from the top right.</p>
       <div class="mt-6 grid md:grid-cols-2 gap-6">
+
         <div class="rounded-2xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 bg-white">
           <div class="px-6 py-3 border-b border-slate-200 dark:border-slate-700 text-base font-semibold">Bitcoin
             (BTC/USD)</div>
@@ -118,8 +186,13 @@
                   style="width: 100%; height: 100%; margin: 0px !important; padding: 0px !important;"></iframe>
               </div>
             </div>
+            <p class="text-xs text-slate-500 mt-2">
+              Market data powered by CoinGecko & Binance
+            </p>
           </div>
         </div>
+
+
         <div class="rounded-2xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 bg-white">
           <div class="px-6 py-3 border-b border-slate-200 dark:border-slate-700 text-base font-semibold">Ethereum
             (ETH/USD)</div>
@@ -133,8 +206,13 @@
                   style="width: 100%; height: 100%; margin: 0px !important; padding: 0px !important;"></iframe>
               </div>
             </div>
+            <p class="text-xs text-slate-500 mt-2">
+              Market data powered by CoinGecko & Binance
+            </p>
           </div>
         </div>
+
+
         <div class="rounded-2xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 bg-white">
           <div class="px-6 py-3 border-b border-slate-200 dark:border-slate-700 text-base font-semibold">Solana
             (SOL/USD)</div>
@@ -148,8 +226,13 @@
                   style="width: 100%; height: 100%; margin: 0px !important; padding: 0px !important;"></iframe>
               </div>
             </div>
+            <p class="text-xs text-slate-500 mt-2">
+              Market data powered by CoinGecko & Binance
+            </p>
           </div>
         </div>
+
+
         <div class="rounded-2xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 bg-white">
           <div class="px-6 py-3 border-b border-slate-200 dark:border-slate-700 text-base font-semibold">USDT
             (USDT/USD)</div>
@@ -163,9 +246,14 @@
                   style="width: 100%; height: 100%; margin: 0px !important; padding: 0px !important;"></iframe>
               </div>
             </div>
+            <p class="text-xs text-slate-500 mt-2">
+              Market data powered by CoinGecko & Binance
+            </p>
           </div>
         </div>
       </div>
+
+
       <div class="mt-10 grid md:grid-cols-3 gap-6">
         <div class="rounded-2xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 bg-white p-4">
           <div class="font-semibold">1. Request quote</div>
@@ -190,7 +278,10 @@
           class="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 px-4 py-2">Back
           to home</a>
       </div>
+
     </section>
+
+
 
     <!-- GIFTCARDS -->
     <section id="giftcards" class="max-w-6xl mx-auto px-4 sm:px-6 py-14 hidden">
@@ -444,7 +535,8 @@
       btc.innerHTML = ''; eth.innerHTML = '';
       new TradingView.widget({
         autosize: true,
-        symbol: 'KRAKEN:BTCUSD',
+        symbol: 'BINANCE:BTCUSDT',
+        symbol: 'BINANCE:ETHUSDT',
         interval: '60',
         timezone: 'Etc/UTC',
         theme: tvTheme,
@@ -598,7 +690,7 @@
     }
     // ]]>
   </script>
-  
+
   <script>
     // Disable right-click
     document.addEventListener("contextmenu", function (e) {
@@ -801,8 +893,8 @@
     <!-- Logo -->
     <div class="flex items-center gap-3 mb-10">
       <div>
-        
-          <img src="img/downloadlogo.png" alt="Reline Technologies" style="height:60px;">
+
+        <img src="img/downloadlogo.png" alt="Reline Technologies" style="height:60px;">
       </div>
       <h1 class="text-white text-xl font-semibold tracking-wide">RELINE</h1>
     </div>
@@ -916,46 +1008,7 @@
 
 
   <!-- Place this before /body in your HTML -->
-  <script>
-    // Disable right-click
-    document.addEventListener("contextmenu", function (e) {
-      e.preventDefault();
-      alert("Right-click is disabled on this website!");
-    });
 
-    // Disable certain keyboard shortcuts
-    document.addEventListener("keydown", function (e) {
-      // F12
-      if (e.key === "F12") {
-        e.preventDefault();
-        alert("This shortcut is disabled!");
-      }
-
-      // Ctrl+Shift+I or Cmd+Option+I (Open DevTools)
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "i") {
-        e.preventDefault();
-        alert("This shortcut is disabled!");
-      }
-
-      // Ctrl+Shift+J or Cmd+Option+J (Console)
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "j") {
-        e.preventDefault();
-        alert("This shortcut is disabled!");
-      }
-
-      // Ctrl+U or Cmd+U (View Source)
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "u") {
-        e.preventDefault();
-        alert("Viewing source is disabled!");
-      }
-
-      // Ctrl+S or Cmd+S (Save page)
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
-        e.preventDefault();
-        alert("Saving the page is disabled!");
-      }
-    });
-  </script>
 </body>
 
 </html>
