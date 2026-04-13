@@ -130,22 +130,45 @@
     </div>
   </header>
 
-  <div id="priceBar" class="w-full bg-black text-white text-sm py-2 px-4 flex gap-6 overflow-x-auto">
-    <span>BTC: <b id="btcPrice">...</b></span>
-    <span>ETH: <b id="ethPrice">...</b></span>
-    <span>USDT: <b id="usdtPrice">...</b></span>
-    <span>BNB: <b id="bnbPrice">...</b></span>
-    <span>SOL: <b id="solPrice">...</b></span>
-    <span>XRP: <b id="xrpPrice">...</b></span>
-    <span>ADA: <b id="adaPrice">...</b></span>
-    <span>DOGE: <b id="dogePrice">...</b></span>
-    <span>LTC: <b id="ltcPrice">...</b></span>
+  <div id="priceBar" class="w-full bg-black text-white text-sm py-2 px-4 overflow-hidden">
+
+    <div id="priceBar" class="w-full bg-black text-white text-sm py-2 px-4 overflow-hidden">
+
+      <div id="tickerTrack" class="flex gap-6">
+        <span>BTC: <b id="btcPrice">...</b></span>
+        <span>ETH: <b id="ethPrice">...</b></span>
+        <span>USDT: <b id="usdtPrice">...</b></span>
+        <span>BNB: <b id="bnbPrice">...</b></span>
+        <span>SOL: <b id="solPrice">...</b></span>
+        <span>XRP: <b id="xrpPrice">...</b></span>
+        <span>ADA: <b id="adaPrice">...</b></span>
+        <span>DOGE: <b id="dogePrice">...</b></span>
+        <span>LTC: <b id="ltcPrice">...</b></span>
+      </div>
+
+    </div>
   </div>
 
   <style>
+    #tickerTrack {
+      display: inline-flex;
+      white-space: nowrap;
+      animation: tickerScroll 25s linear infinite;
+    }
+
+    @keyframes tickerScroll {
+      from {
+        transform: translateX(100%);
+      }
+
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
     #priceBar {
       white-space: nowrap;
-      animation: scrollTicker 25s linear infinite;
+      /* animation: scrollTicker 25s linear infinite; */
     }
 
     #priceBar span {
